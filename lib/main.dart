@@ -11,15 +11,8 @@ class WeekDaysCalendar extends StatefulWidget {
 }
 
 class ParticularWeekState extends State<WeekDaysCalendar> {
-  DateTime _minDate, _maxDate, _firstDate, _lastDate;
-  CalendarController _controller;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    _controller = CalendarController();
-    super.initState();
-  }
+  DateTime? _minDate, _maxDate, _firstDate, _lastDate;
+  final CalendarController?  _controller = CalendarController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +24,7 @@ class ParticularWeekState extends State<WeekDaysCalendar> {
               FlatButton(
                 onPressed: () {
                   setState(() {
-                    _controller.view = CalendarView.day;
+                    _controller!.view = CalendarView.day;
                     _minDate = _firstDate;
                     _maxDate = _lastDate;
                   });
@@ -41,7 +34,7 @@ class ParticularWeekState extends State<WeekDaysCalendar> {
               FlatButton(padding: const EdgeInsets.only(left: 10),
                 onPressed: () {
                   setState(() {
-                    _controller.view = CalendarView.week;
+                    _controller!.view = CalendarView.week;
                     _minDate = DateTime(01, 01, 01, 01, 0, 0);
                     _maxDate = DateTime(9999, 12, 31, 01, 0, 0);
                   });
@@ -63,11 +56,10 @@ class ParticularWeekState extends State<WeekDaysCalendar> {
   }
 
   void viewChanged(ViewChangedDetails viewChangedDetails) {
-    if (_controller.view == CalendarView.week) {
+    if (_controller!.view == CalendarView.week) {
       _firstDate = viewChangedDetails.visibleDates[0];
       _lastDate = viewChangedDetails
           .visibleDates[viewChangedDetails.visibleDates.length - 1];
     }
   }
 }
-
