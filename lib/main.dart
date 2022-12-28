@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 void main() {
-  return runApp(WeekDaysCalendar());
+  return runApp(const WeekDaysCalendar());
 }
 
 class WeekDaysCalendar extends StatefulWidget {
+  const WeekDaysCalendar({super.key});
+
   @override
   ParticularWeekState createState() => ParticularWeekState();
 }
 
 class ParticularWeekState extends State<WeekDaysCalendar> {
   DateTime? _minDate, _maxDate, _firstDate, _lastDate;
-  final CalendarController?  _controller = CalendarController();
+  final CalendarController  _controller = CalendarController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,25 +23,25 @@ class ParticularWeekState extends State<WeekDaysCalendar> {
       home: Scaffold(
           appBar: AppBar(
             actions: [
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   setState(() {
-                    _controller!.view = CalendarView.day;
+                    _controller.view = CalendarView.day;
                     _minDate = _firstDate;
                     _maxDate = _lastDate;
                   });
                 },
-                child: Text("Day"),
+                child: const Text("Day", style: TextStyle(color: Colors.black)),
               ),
-              FlatButton(padding: const EdgeInsets.only(left: 10),
+              TextButton(
                 onPressed: () {
                   setState(() {
-                    _controller!.view = CalendarView.week;
+                    _controller.view = CalendarView.week;
                     _minDate = DateTime(01, 01, 01, 01, 0, 0);
                     _maxDate = DateTime(9999, 12, 31, 01, 0, 0);
                   });
                 },
-                child: Text("Week"),
+                child: const Text("Week", style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
@@ -56,7 +58,7 @@ class ParticularWeekState extends State<WeekDaysCalendar> {
   }
 
   void viewChanged(ViewChangedDetails viewChangedDetails) {
-    if (_controller!.view == CalendarView.week) {
+    if (_controller.view == CalendarView.week) {
       _firstDate = viewChangedDetails.visibleDates[0];
       _lastDate = viewChangedDetails
           .visibleDates[viewChangedDetails.visibleDates.length - 1];
